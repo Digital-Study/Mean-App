@@ -1,72 +1,28 @@
 const express = require('express');
-const router = express.Router();
-
+var bodyParser = require("body-parser");
+var mongojs = require('mongojs');
 // declare axios for making http requests
 const axios = require('axios');
+var db = mongojs('mongodb://localhost/mean-demo');
+var router = express.Router();
 const API = 'https://jsonplaceholder.typicode.com';
 
-
-var mongo = require("mongojs");
-//var db= mongojs('mongodb://jagadishvaranasi:asdfghjkl@ds123381.mlab.com:23381/myfirstmdbjagdish',['tasks']);
+var db = mongojs('mongodb://localhost/mean-demo');
 
 
-var Server = mongo.Server;
-var Db = mongo.Db;
-var server = new Server('ds123381.mlab.com', 23381, {auto_reconnect : true});
-var db = new Db('myfirstmdbjagdish', server);
-db.open(function(err, client) {
-    client.authenticate('jagadishvaranasi', 'asdfghjkl', function(err, success) {
-    console.log("connected");
+/* GET All employees */
+router.get('/tasks', function(req, res, next) {
+    db.tasks.find(function(err, tasks) {
+        if (err) {
+            res.send(err);
+        } else {
+            res.json(tasks);
+        }
     });
 });
 
-
-
-/* GET api listing. */
 router.get('/', (req, res) => {
-  res.send('service working !!');
+  res.send(' Express Js service is working !!');
 });
-
-
-
-router.get('/tasks', function (req, res,next) {
-
-
-db.tasks.find(function(err,tasks){
-
-if(err)
-{
-
-res.send(err);
-
-}
-res.json(tasks);
-
-
-})
-
-});
-
-
-router.get('/dummy', (req, res) => {
-
-
-  res.send('dummy service working !!!!');
-});
-
-
- // Get all posts
-router.get('/posts', (req, res) => {
-  // Get posts from the mock api
-  // This should ideally be replaced with a service that connects to MongoDB
-  axios.get(`${API}/posts`, { proxy: { host: 'https://proxy.cognizant.com', port: 6050}})
-    .then(posts => {
-      res.status(200).json(posts);
-    })
-    .catch(error => {
-      res.status(500).send(error)
-    });
-});
-
 
 module.exports = router;

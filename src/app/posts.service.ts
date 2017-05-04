@@ -7,18 +7,10 @@ export class PostsService {
 
   constructor(private http: Http) { }
 
-
- // Get Sample text from API
-  getAllDummytext() {
-    return this.http.get('/api/dummy');
-     // .map(res => res.json());
-  }
-
-  // Get all posts from the API
-  getAllPosts() {
-    return this.http.get('/api/posts')
+ // Get all tasks from the API
+  getAllTasks() {
+    return this.http.get('/api/tasks')
       .map(res => res.json());
   }
-
 
 }

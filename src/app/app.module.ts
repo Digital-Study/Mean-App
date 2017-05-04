@@ -10,11 +10,12 @@ import { PostsService } from './posts.service';
 
 // Define the routes
 const ROUTES = [
-  {
-    path: '',
-    redirectTo: 'posts',
-    pathMatch: 'full'
-  },
+  // {
+  //   path: '',
+  // component: AppComponent
+  //   //redirectTo: 'posts',
+  // //  pathMatch: 'full'
+  // },
   {
     path: 'posts',
     component: PostsComponent
